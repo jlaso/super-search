@@ -8,7 +8,6 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -40,25 +39,6 @@ func searchTextInFile(path, text string) ([]int, error) {
 		return result, err
 	}
 	return result, nil
-}
-
-func stringInSlice(a string, list *[]string) bool {
-	if list == nil || len(*list) == 0 {
-		return false
-	}
-	for _, b := range *list {
-		if b == a {
-			return true
-		}
-		if strings.Contains(a, b) {
-			return true
-		}
-		r, _ := regexp.Compile(b)
-		if r.FindString(a) != "" {
-			return true
-		}
-	}
-	return false
 }
 
 func isExec(info fs.DirEntry) bool {
